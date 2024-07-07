@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Apartment\Apartment;
 use App\Models\Hotel\Hotel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,7 +27,8 @@ class HomeController extends Controller
     {
 //        2 cach lay du lieu
 //        $hotel = Hotel::query()->select()->orderBy('id','desc')->take(3)->get();
+        $room = Apartment::query()->select()->orderBy('id','desc')->take(4)->get();
         $hotel = Hotel::select()->orderBy('id','desc')->take(3)->get();
-        return view('home',compact('hotel'));
+        return view('home',compact('hotel','room'));
     }
 }

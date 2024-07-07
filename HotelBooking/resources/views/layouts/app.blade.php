@@ -74,7 +74,7 @@
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index.html" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="{{route('home')}}" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
                 <li class="nav-item"><a href="rooms.html" class="nav-link">Apartment Room</a></li>
@@ -195,7 +195,7 @@
                 <h2 class="footer-heading">Tag cloud</h2>
                 <div class="tagcloud">
                     <a href="#" class="tag-cloud-link">apartment</a>
-                    <a href="#" class="tag-cloud-link">home</a>
+                    <a href="{{route('home')}}" class="tag-cloud-link">home</a>
                     <a href="#" class="tag-cloud-link">vacation</a>
                     <a href="#" class="tag-cloud-link">rental</a>
                     <a href="#" class="tag-cloud-link">rent</a>

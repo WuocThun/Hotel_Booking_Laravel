@@ -1,102 +1,78 @@
 @extends('layouts.app')
 
 @section('content')
+
     <div class="hero-wrap js-fullheight"
-         style=" margin-top: -25px; ;background-image: url('{{asset('assets/images/image_2.jpg')}} ');">
+         style="margin-top: -25px; background-image: url(' {{asset('assets/images/room-1.jpg')}} ');">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start"
                  data-scrollax-parent="true">
                 <div class="col-md-7 ftco-animate">
                     <h2 class="subheading">Welcome to Vacation Rental</h2>
-                    <h1 class="mb-4">Rent an appartment for your vacation</h1>
-                    <p><a href="#" class="btn btn-primary">Learn more</a> <a href="#" class="btn btn-white">Contact
-                            us</a></p>
+                    <h1 class="mb-4">  {{$getRoom ->name}} </h1>
+                    <h2 class="subheading">  {{$getRoom ->price}}.$ </h2>
+                    <!-- <p><a href="#" class="btn btn-primary">Learn more</a> <a href="#" class="btn btn-white">Contact us</a></p> -->
                 </div>
             </div>
         </div>
     </div>
 
-
-    <section class="ftco-section ftco-services">
+    <section class="ftco-section ftco-book ftco-no-pt ftco-no-pb">
         <div class="container">
-            <div class="row">
-                @foreach($hotel as $hotels)
-                    <div class="col-md-4 d-flex services align-self-stretch px-4 ftco-animate">
-                        <div class="d-block services-wrap text-center">
-                            <div class="img"
-                                 style="background-image: url( {{asset('assets/images/'.$hotels->image.'')}} );"></div>
-                            <div class="media-body py-4 px-3">
-                                <h3 class="heading">{{$hotels->name}}</h3>
-                                <p> {{$hotels->description}} </p>
-                                <p>Location: {{$hotels->location}}.</p>
-                                <p><a href=" {{route('hotels.rooms',$hotels->id)}} " class="btn btn-primary">View
-                                        rooms</a></p>
+            <div class="row justify-content-end">
+                <div class="col-lg-4">
+                    <form action="{{route('hotels.rooms.booking',$getRoom->id)}}" method="post" class="appointment-form"
+                          style="margin-top: -568px;">
+                        @csrf
+                        <h3 class="mb-3">Book this room</h3>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input name="email" type="text" class="form-control" placeholder="Email">
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                @endforeach
-            </div>
-        </div>
-    </section>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input name="name" type="text" class="form-control" placeholder="Full Name">
+                                </div>
+                            </div>
 
-    <section class="ftco-section bg-light">
-        <div class="container-fluid px-md-0">
-            <div class="row no-gutters justify-content-center pb-5 mb-3">
-                <div class="col-md-7 heading-section text-center ftco-animate">
-                    <h2>Apartment Room</h2>
-                </div>
-            </div>
-            <div class="row no-gutters">
-                @foreach($room as $rooms)
-                    <div class="col-lg-6">
-                        <div class="room-wrap d-md-flex">
-                            <a href="{{route('hotels.rooms.details',$rooms->id)}}" class="img"
-                               style="background-image: url( {{asset('assets/images/'.$rooms->image.'')}});"></a>
-                            <div class="half left-arrow d-flex align-items-center">
-                                <div class="text p-4 p-xl-5 text-center">
-                                    <p class="star mb-0"><span class="fa fa-star"></span><span
-                                            class="fa fa-star"></span><span class="fa fa-star"></span><span
-                                            class="fa fa-star"></span><span class="fa fa-star"></span></p>
-                                    <!-- <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per night</span></p> -->
-                                    <h3 class="mb-3"><a href="{{route('hotels.rooms.details',$rooms->id)}}">{{$rooms->name}}</a></h3>
-                                    <ul class="list-accomodation">
-                                        <li><span>Max:</span> {{$rooms->max_persons}} Persons</li>
-                                        <li><span>Size:</span> {{$rooms->size}} m2</li>
-                                        <li><span>View:</span> {{$rooms->view}}</li>
-                                        <li><span>Bed:</span> {{$rooms->num_beds}} </li>
-                                    </ul>
-                                    <p class="pt-1"><a href="{{route('hotels.rooms.details',$rooms->id)}}" class="btn-custom px-3 py-2">View Room
-                                            Details <span class="icon-long-arrow-right"></span></a></p>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" name="phone_number" class="form-control" placeholder="Phone Number">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="input-wrap">
+{{--                                        <div class="icon"><span class="ion-md-calendar"></span></div>--}}
+                                        <input type="text" class="form-control appointment_date-check-in" name="check_in" placeholder="Check-In">
+{{--                                        <input type="date" class="form-control appointment_date-check-out"  name="check_in" placeholder="Check-In">--}}
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="icon"><span class="ion-md-calendar"></span></div>
+                                    <input type="text" class="form-control appointment_date-check-out" name="check_out" placeholder="Check-Out" >
+{{--                                    <input type="date" class="form-control appointment_date-check-out"  name="check_out" placeholder="Check-Out">--}}
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="submit" value="Book and Pay Now" class="btn btn-primary py-3 px-4">
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                @endforeach
-                {{--                <div class="col-lg-6">--}}
-                {{--                    <div class="room-wrap d-md-flex">--}}
-                {{--                        <a href="#" class="img" style="background-image: url(images/room-1.jpg);"></a>--}}
-                {{--                        <div class="half left-arrow d-flex align-items-center">--}}
-                {{--                            <div class="text p-4 p-xl-5 text-center">--}}
-                {{--                                <p class="star mb-0"><span class="fa fa-star"></span><span--}}
-                {{--                                        class="fa fa-star"></span><span class="fa fa-star"></span><span--}}
-                {{--                                        class="fa fa-star"></span><span class="fa fa-star"></span></p>--}}
-                {{--                                <!-- <p class="mb-0"><span class="price mr-1">$120.00</span> <span class="per">per night</span></p> -->--}}
-                {{--                                <h3 class="mb-3"><a href="rooms.html">Suite Room</a></h3>--}}
-                {{--                                <ul class="list-accomodation">--}}
-                {{--                                    <li><span>Max:</span> 3 Persons</li>--}}
-                {{--                                    <li><span>Size:</span> 45 m2</li>--}}
-                {{--                                    <li><span>View:</span> Sea View</li>--}}
-                {{--                                    <li><span>Bed:</span> 1</li>--}}
-                {{--                                </ul>--}}
-                {{--                                <p class="pt-1"><a href="room-single.html" class="btn-custom px-3 py-2">View Room--}}
-                {{--                                        Details <span class="icon-long-arrow-right"></span></a></p>--}}
-                {{--                            </div>--}}
-                {{--                        </div>--}}
-                {{--                    </div>--}}
-                {{--                </div>--}}
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -108,7 +84,7 @@
             <div class="row no-gutters">
                 <div class="col-md-6 wrap-about">
                     <div class="img img-2 mb-4"
-                         style="background-image: url( {{asset('assets/images/image_2.jpg)')}} ;">
+                         style="background-image: url( {{asset('assets/images/image_2.jpg')}} );">
                     </div>
                     <h2>The most recommended vacation rental</h2>
                     <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. It
@@ -214,7 +190,8 @@
         </div>
     </section>
 
-    <section class="ftco-intro" style="background-image: url(images/image_2.jpg);" data-stellar-background-ratio="0.5">
+    <section class="ftco-intro" style="background-image: url( {{asset('assets/images/image_2.jpg')}} );"
+             data-stellar-background-ratio="0.5">
         <div class="overlay"></div>
         <div class="container">
             <div class="row justify-content-center">
@@ -229,5 +206,4 @@
             </div>
         </div>
     </section>
-
 @endsection
