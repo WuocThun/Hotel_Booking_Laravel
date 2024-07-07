@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hotel\Hotel;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+//        2 cach lay du lieu
+//        $hotel = Hotel::query()->select()->orderBy('id','desc')->take(3)->get();
+        $hotel = Hotel::select()->orderBy('id','desc')->take(3)->get();
+        return view('home',compact('hotel'));
     }
 }
